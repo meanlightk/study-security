@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-import org.hibernate.annotations.CurrentTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -19,7 +19,8 @@ public class User {
     private String password;
     private String email;
     private String role; // ROLE_USER, ROLE_ADMIN
-    @CurrentTimestamp
+    // private Timestamp loginDate;
+    @CreationTimestamp
     private Timestamp createDate;
 
 
@@ -47,13 +48,6 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getRole() {
         return role;
@@ -63,11 +57,4 @@ public class User {
         this.role = role;
     }
 
-    public Timestamp getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
-    }
 }

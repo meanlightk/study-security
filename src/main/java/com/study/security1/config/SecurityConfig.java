@@ -25,19 +25,19 @@ public class SecurityConfig {
         http.csrf(CsrfConfigurer::disable);
         http.authorizeHttpRequests(authorize ->
                 authorize
-                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/user/**").authenticated()    // 인증만 되면 들어갈 수 있는 주소!!
                         .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().permitAll()
         );
         /**
-         * 로그인이 되어있지 않으면 어떤 페이지로 이동하든 로그인 페이지로 이동
+         * 비로그인 상태 -> 로그인 페이지로 이동
          */
         http.formLogin(f -> f.loginPage("/loginForm")
-                        .loginProcessingUrl("/loginForm")
-                        .usernameParameter("userName")
-                        .passwordParameter("/password")
-                        .defaultSuccessUrl("/")
+                        .loginProcessingUrl("/login")   // login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해줌.
+//                        .usernameParameter("userName")
+//                        .passwordParameter("/password")
+                        .defaultSuccessUrl("/") // 로그인이 완료되면 메인페이지로 이동
                         .permitAll())
                 .httpBasic(h -> h.disable());
 
